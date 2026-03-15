@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Student Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron bg-light p-5 rounded mb-4">
+            <h1 class="display-4">Welcome to Student Management System</h1>
+            <p class="lead">Manage student profiles, documents, and achievements in one centralized platform.</p>
+            <hr class="my-4">
+            <p>Track student information, verify documents, and monitor achievements efficiently.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'register_student' %}" role="button">
+                <i class="bi bi-person-plus"></i> Register New Student
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-people"></i> Students
+                </h5>
+            </div>
+            <div class="card-body">
+                <h2 class="display-4">{{ total_students }}</h2>
+                <p class="card-text">Registered Students</p>
+                <a href="{% url 'student_list' %}" class="btn btn-outline-primary">View All Students</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-file-earmark-text"></i> Documents
+                </h5>
+            </div>
+            <div class="card-body">
+                <h2 class="display-4">0</h2>
+                <p class="card-text">Uploaded Documents</p>
+                <a href="{% url 'document_list' %}" class="btn btn-outline-primary">View Documents</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-trophy"></i> Achievements
+                </h5>
+            </div>
+            <div class="card-body">
+                <h2 class="display-4">0</h2>
+                <p class="card-text">Student Achievements</p>
+                <a href="{% url 'achievement_list' %}" class="btn btn-outline-primary">View Achievements</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-lightning"></i> Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'register_student' %}" class="btn btn-success w-100">
+                            <i class="bi bi-person-plus"></i><br>Add Student
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'upload_document' %}" class="btn btn-info w-100">
+                            <i class="bi bi-cloud-upload"></i><br>Upload Document
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{% url 'add_achievement' %}" class="btn btn-warning w-100">
+                            <i class="bi bi-trophy"></i><br>Add Achievement
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="/admin/" class="btn btn-secondary w-100">
+                            <i class="bi bi-shield-lock"></i><br>Admin Panel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

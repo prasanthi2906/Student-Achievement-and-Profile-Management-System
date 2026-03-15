@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Login - Student Management System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i class="bi bi-person-badge"></i> Student Login
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i>
+                    <strong>Login Instructions:</strong><br>
+                    Use your registration number and temporary password provided by admin.<br>
+                    Format: Registration Number (e.g., 231FA04001), Temporary Password (8 characters)
+                </div>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="registration_number" class="form-label">
+                            Registration Number *
+                        </label>
+                        <input type="text" class="form-control" id="registration_number" 
+                               name="registration_number" required 
+                               placeholder="Enter your registration number (e.g., 231FA04001)">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">
+                            Temporary Password *
+                        </label>
+                        <input type="password" class="form-control" id="password" 
+                               name="password" required 
+                               placeholder="Enter your temporary password">
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-box-arrow-in-right"></i> Login as Student
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="text-center mt-3">
+                    <p class="mb-2">
+                        <small class="text-muted">
+                            After admin approval, you'll receive your credentials via email.
+                        </small>
+                    </p>
+                    <hr>
+                    <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-shield-lock"></i> Admin Login
+                    </a>
+                    <a href="{% url 'student_self_register' %}" class="btn btn-outline-primary btn-sm ms-2">
+                        <i class="bi bi-person-plus"></i> Register as Student
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

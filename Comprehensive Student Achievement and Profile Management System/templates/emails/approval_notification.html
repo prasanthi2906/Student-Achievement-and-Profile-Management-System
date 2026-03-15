@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Registration Approved</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background-color: #28a745; color: white; padding: 20px; text-align: center;">
+            <h1>Registration Approved</h1>
+        </div>
+        
+        <div style="padding: 20px; background-color: #f8f9fa;">
+            <h2>Hello {{ student_name }},</h2>
+            
+            <p>Your registration has been approved on <strong>{{ approval_date }}</strong>.</p>
+            
+            <div style="background-color: #d4edda; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                <h3>What happens next?</h3>
+                <p>{{ login_instructions }}</p>
+            </div>
+            
+            <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                <p><strong>Need Assistance?</strong></p>
+                <p>Contact us at <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> if you have any questions.</p>
+            </div>
+            
+            <hr>
+            <p style="text-align: center; color: #6c757d;">
+                {{ portal_name }} - This is an automated message. Please do not reply to this email.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

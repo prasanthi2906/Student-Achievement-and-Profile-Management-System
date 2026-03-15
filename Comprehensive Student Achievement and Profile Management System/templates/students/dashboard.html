@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ student.full_name }} Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-person-badge"></i> Student Dashboard</h2>
+            <div>
+                <a href="{% url 'student_document_upload' %}" class="btn btn-primary me-2">
+                    <i class="bi bi-cloud-upload"></i> Upload Document
+                </a>
+                <a href="{% url 'student_achievement_submit' %}" class="btn btn-success me-2">
+                    <i class="bi bi-plus-circle"></i> Submit Achievement
+                </a>
+                <a href="{% url 'student_logout' %}" class="btn btn-outline-danger">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </a>
+            </div>
+        </div>
+        
+        <!-- Student Profile Card -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <span class="badge bg-primary">{{ student.registration_number }}</span>
+                    {{ student.full_name }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Personal Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Email:</strong></td>
+                                <td>{{ student.email }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phone:</strong></td>
+                                <td>{{ student.phone }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Program:</strong></td>
+                                <td>{{ student.program }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Academic Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Admission:</strong></td>
+                                <td>{{ student.get_admission_category_display }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Enrolled:</strong></td>
+                                <td>{{ student.enrollment_date }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Age:</strong></td>
+                                <td>{{ student.age }} years</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-lightning"></i> Quick Actions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="border rounded p-3 h-100">
+                                    <h6><i class="bi bi-file-earmark-arrow-up text-primary"></i> Upload Documents</h6>
+                                    <p class="text-muted small">Upload your academic documents, certificates, and other important files for verification.</p>
+                                    <a href="{% url 'student_document_upload' %}" class="btn btn-sm btn-primary">Upload Document</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="border rounded p-3 h-100">
+                                    <h6><i class="bi bi-trophy text-success"></i> Submit Achievements</h6>
+                                    <p class="text-muted small">Record your academic, sports, cultural, and other achievements with supporting documents.</p>
+                                    <a href="{% url 'student_achievement_submit' %}" class="btn btn-sm btn-success">Submit Achievement</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Documents Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-file-earmark-text"></i> My Documents
+                            <span class="badge bg-secondary float-end">{{ documents.count }}</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if documents %}
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Uploaded</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for doc in documents %}
+                                            <tr>
+                                                <td>{{ doc.title }}</td>
+                                                <td>{{ doc.get_document_type_display }}</td>
+                                                <td>
+                                                    {% if doc.verified %}
+                                                        <span class="badge bg-success">Verified</span>
+                                                    {% else %}
+                                                        <span class="badge bg-warning">Pending</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ doc.uploaded_at|date:"M d, Y" }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="bi bi-file-earmark-x text-muted" style="font-size: 3rem;"></i>
+                                <p class="text-muted mt-2">No documents uploaded yet.</p>
+                                <a href="{% url 'student_document_upload' %}" class="btn btn-primary">
+                                    <i class="bi bi-cloud-upload"></i> Upload Your First Document
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Achievements Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-trophy"></i> My Achievements
+                            <span class="badge bg-secondary float-end">{{ achievements.count }}</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if achievements %}
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for achievement in achievements %}
+                                            <tr>
+                                                <td>{{ achievement.title }}</td>
+                                                <td>{{ achievement.get_category_display }}</td>
+                                                <td>
+                                                    <span class="badge {{ achievement.status_badge_class }}">
+                                                        {{ achievement.get_status_display }}
+                                                    </span>
+                                                </td>
+                                                <td>{{ achievement.date|date:"M d, Y" }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="bi bi-trophy text-muted" style="font-size: 3rem;"></i>
+                                <p class="text-muted mt-2">No achievements recorded yet.</p>
+                                <a href="{% url 'student_achievement_submit' %}" class="btn btn-success">
+                                    <i class="bi bi-plus-circle"></i> Submit Your First Achievement
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

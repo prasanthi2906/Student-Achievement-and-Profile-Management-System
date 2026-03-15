@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Approve Achievement - {{ achievement.title }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i class="bi bi-check-circle"></i> Approve Achievement
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-success">
+                    <h5><i class="bi bi-check-circle"></i> Achievement Approval</h5>
+                    <p>Please review the achievement details below and confirm approval.</p>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ achievement.title }}</h5>
+                        <p class="card-text">
+                            <strong>Student:</strong> {{ achievement.student.full_name }}<br>
+                            <strong>Registration:</strong> {{ achievement.student.registration_number }}<br>
+                            <strong>Category:</strong> {{ achievement.get_category_display }}<br>
+                            <strong>Date:</strong> {{ achievement.date|date:"F d, Y" }}<br>
+                            <strong>Organized by:</strong> {{ achievement.organizing_body }}
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">{{ achievement.description|truncatewords:30 }}</small>
+                        </p>
+                    </div>
+                </div>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'achievement_detail' achievement.pk %}" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Approve Achievement
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Self Registration - Student Management System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading"><i class="bi bi-exclamation-triangle"></i> Important Notice</h4>
+            <p>This is a <strong>controlled self-registration system</strong>. Your registration will be subject to administrator verification before full access is granted.</p>
+            <p class="mb-0">Please ensure all information provided is accurate and you are eligible for registration.</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i class="bi bi-person-plus"></i> Student Self Registration
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- Personal Information Section -->
+                    <div class="border-bottom pb-3 mb-4">
+                        <h5><i class="bi bi-person"></i> Personal Information</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.first_name.id_for_label }}" class="form-label">
+                                        First Name *
+                                    </label>
+                                    {{ form.first_name }}
+                                    {% if form.first_name.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.first_name.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.last_name.id_for_label }}" class="form-label">
+                                        Last Name *
+                                    </label>
+                                    {{ form.last_name }}
+                                    {% if form.last_name.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.last_name.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label">
+                                        Email Address *
+                                    </label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.email.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="form-text">Please use your official college email if available</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.phone.id_for_label }}" class="form-label">
+                                        Phone Number *
+                                    </label>
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.phone.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.date_of_birth.id_for_label }}" class="form-label">
+                                        Date of Birth *
+                                    </label>
+                                    {{ form.date_of_birth }}
+                                    {% if form.date_of_birth.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.date_of_birth.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.enrollment_date.id_for_label }}" class="form-label">
+                                        Enrollment Date *
+                                    </label>
+                                    {{ form.enrollment_date }}
+                                    {% if form.enrollment_date.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.enrollment_date.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.address.id_for_label }}" class="form-label">
+                                Address *
+                            </label>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.address.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Academic Information Section -->
+                    <div class="border-bottom pb-3 mb-4">
+                        <h5><i class="bi bi-mortarboard"></i> Academic Information</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.admission_category.id_for_label }}" class="form-label">
+                                        Admission Category *
+                                    </label>
+                                    {{ form.admission_category }}
+                                    {% if form.admission_category.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.admission_category.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.program.id_for_label }}" class="form-label">
+                                        Academic Program *
+                                    </label>
+                                    {{ form.program }}
+                                    {% if form.program.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.program.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Optional Document Upload Section -->
+                    <div class="border-bottom pb-3 mb-4">
+                        <h5><i class="bi bi-cloud-upload"></i> Optional Document Upload</h5>
+                        <p class="text-muted">You can upload important documents now or later after registration approval.</p>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ form.document_type.id_for_label }}" class="form-label">
+                                        Document Type
+                                    </label>
+                                    {{ form.document_type }}
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label for="{{ form.document_title.id_for_label }}" class="form-label">
+                                        Document Title
+                                    </label>
+                                    {{ form.document_title }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.document_file.id_for_label }}" class="form-label">
+                                Upload Document
+                            </label>
+                            {{ form.document_file }}
+                            {% if form.document_file.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.document_file.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">{{ form.document_file.help_text }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Optional Achievement Section -->
+                    <div class="pb-3 mb-4">
+                        <h5><i class="bi bi-trophy"></i> Optional Achievement Information</h5>
+                        <p class="text-muted">Share any notable achievements you'd like to record.</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.achievement_title.id_for_label }}" class="form-label">
+                                        Achievement Title
+                                    </label>
+                                    {{ form.achievement_title }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.achievement_category.id_for_label }}" class="form-label">
+                                        Category
+                                    </label>
+                                    {{ form.achievement_category }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.achievement_description.id_for_label }}" class="form-label">
+                                Description
+                            </label>
+                            {{ form.achievement_description }}
+                            {% if form.achievement_description.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.achievement_description.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <h6 class="alert-heading"><i class="bi bi-info-circle"></i> Registration Process</h6>
+                        <ol class="mb-0">
+                            <li>Submit this form with your information</li>
+                            <li>Administrator will review and verify your details</li>
+                            <li>You'll receive login credentials via email</li>
+                            <li>Access your personalized student dashboard</li>
+                        </ol>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'home' %}" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send"></i> Submit Registration
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-control, .form-select {
+        border: 1px solid #ced4da;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    .border-bottom {
+        border-bottom: 2px solid #e9ecef !important;
+    }
+</style>
+{% endblock %}

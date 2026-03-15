@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ document.title }} - Document Details{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-file-text"></i> Document Details</h2>
+            <div>
+                {% if user.is_authenticated %}
+                    {% if not document.verified %}
+                        <a href="{% url 'document_verify' document.pk %}" class="btn btn-success me-2">
+                            <i class="bi bi-check-circle"></i> Verify Document
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'document_delete' document.pk %}" class="btn btn-outline-danger">
+                        <i class="bi bi-trash"></i> Delete
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    {{ document.title }}
+                    {% if document.verified %}
+                        <span class="badge bg-success ms-2">Verified</span>
+                    {% else %}
+                        <span class="badge bg-warning ms-2">Pending Verification</span>
+                    {% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Document Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Title:</strong></td>
+                                <td>{{ document.title }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Type:</strong></td>
+                                <td>{{ document.get_document_type_display }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>File Name:</strong></td>
+                                <td>{{ document.file.name|slice:"10:" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>File Size:</strong></td>
+                                <td>{{ document.file.size|filesizeformat }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Student Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Name:</strong></td>
+                                <td>{{ document.student.full_name }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Registration:</strong></td>
+                                <td>{{ document.student.registration_number }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Program:</strong></td>
+                                <td>{{ document.student.program }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email:</strong></td>
+                                <td>{{ document.student.email }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h5>Timeline</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Uploaded:</strong></td>
+                                <td>{{ document.uploaded_at|date:"F d, Y g:i A" }}</td>
+                            </tr>
+                            {% if document.verified %}
+                                <tr>
+                                    <td><strong>Verified:</strong></td>
+                                    <td>{{ document.verified_at|date:"F d, Y g:i A" }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Verified By:</strong></td>
+                                    <td>{{ document.verified_by.username }}</td>
+                                </tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Actions</h5>
+                        <div class="d-grid gap-2">
+                            <a href="{{ document.file.url }}" class="btn btn-primary" target="_blank">
+                                <i class="bi bi-download"></i> Download Document
+                            </a>
+                            <a href="{% url 'student_detail' document.student.pk %}" class="btn btn-outline-info">
+                                <i class="bi bi-person"></i> View Student Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'document_list' %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Document List
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
